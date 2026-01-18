@@ -1,47 +1,41 @@
-import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
+import "./App.css";
+
+import AppLayout from "./components/AppLayout";
+
+import Dashboard from "./pages/Dashboard";
+import Profile from "./pages/Profile";
+import MockTests from "./pages/MockTests";
+import Notifications from "./pages/Notifications";
+import Applications from "./pages/Applications";
+import Settings from "./pages/Settings";
+import About from "./pages/About";
+import HowItWorks from "./pages/HowItWorks";
+import NotFound from "./pages/NotFound";
 
 // PUBLIC_INTERFACE
 function App() {
-  const [theme, setTheme] = useState('light');
-
-  // Effect to apply theme to document element
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-  }, [theme]);
-
-  // PUBLIC_INTERFACE
-  const toggleTheme = () => {
-    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
-  };
-
+  /** Root Talenvia application component defining routes and layout. */
   return (
     <div className="App">
-      <header className="App-header">
-        <button 
-          className="theme-toggle" 
-          onClick={toggleTheme}
-          aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
-        >
-          {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
-        </button>
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <p>
-          Current theme: <strong>{theme}</strong>
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <AppLayout>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/mock-tests" element={<MockTests />} />
+          <Route path="/notifications" element={<Notifications />} />
+          <Route path="/applications" element={<Applications />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/how-it-works" element={<HowItWorks />} />
+
+          {/* Legacy / convenience */}
+          <Route path="/dashboard" element={<Navigate to="/" replace />} />
+
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </AppLayout>
     </div>
   );
 }

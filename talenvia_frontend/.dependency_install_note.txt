@@ -1,0 +1,5 @@
+react-router-dom was added to package.json and installed via `npm install` to fix build error:
+"Module not found: Error: Can't resolve 'react-router-dom'".
+
+If CI still fails due to lockfile mismatch, regenerate package-lock.json with:
+npm install --no-audit --no-fund
